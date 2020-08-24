@@ -1,0 +1,26 @@
+.time-container {
+  height: 40px;
+  position: relative;
+}
+
+.time-container div {
+  position: absolute;
+  left: 36%;
+  top: 1px;
+}
+
+.time-container h1 {
+  font-size: 32px;
+  color: #3e3b47;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: white;
+  margin-left: -10px;
+  position: absolute;
+  top: 1.5px;
+}
+
+.slick-arrow {
+  transform: rotate(90deg);
+}
