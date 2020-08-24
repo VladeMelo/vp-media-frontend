@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo } from 'react';
 
 import Slider, { CustomArrowProps, Settings } from 'react-slick';
 
