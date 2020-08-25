@@ -3,17 +3,17 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import { FiCheckCircle, FiSend } from 'react-icons/fi';
+import { FiCheckCircle, FiSend, FiXCircle } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import axios from 'axios';
 
 import Input from '../../components/Input/index';
 import Carousel from '../../components/Carousel';
 
-import { Container, CallToActionButton,  CallToActionContainer, FirstContainer, Logo, SecondContainer, SecretContainer, Info, Circle, ThirdContainer, Calendar, ScheduleContainer, ScheduleInfo, CheckInfo, Self, FillInformation, CarouselContainer, FormEmail, ForthContainer } from './styles';
+import { Container, CallToActionButton,  CallToActionContainer, FirstContainer, Logo, SecondContainer, SecretContainer, Info, Circle, ThirdContainer, Calendar, ScheduleContainer, ScheduleInfo, CheckInfo, Self, FillInformation, CarouselContainer, FormEmail, FourthContainer, ModalConfirmed, ModalError } from './styles';
 
 import socialBoardSvg from '../../assets/social-board.svg'; 
-import vpImg from '../../assets/vp.png'; 
+import vpImg from '../../assets/logoVpWhite.png'; 
 import funilImg from '../../assets/funil.jpg'; 
 import instrutorImg from '../../assets/instrutor.jpg'; 
 
@@ -29,7 +29,9 @@ const api = axios.create({
 
 const VP = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState('08:00')
+  const [selectedTime, setSelectedTime] = useState('08:00');
+  const [showModalConfirmed, setShowModalConfirmed] = useState(false);
+  const [showModalError, setShowModalError] = useState(false);
 
   useEffect(() => {
     Aos.init({
@@ -69,8 +71,25 @@ const VP = () => {
         minute: timeFormatted[1],
         date: selectedDate 
       })
+
+      setShowModalConfirmed(true);
+
+      if (document.querySelector('#input')) {
+        (document.querySelector('#input') as HTMLInputElement).value = '';
+      }
+
+      await new Promise(resolve => {
+        setTimeout(resolve, 3000);
+      })
+      
+      setShowModalConfirmed(false);
     } catch (err) {
-      console.log(err)
+      setShowModalError(true);
+      await new Promise(resolve => {
+        setTimeout(resolve, 3000);
+      })
+
+      setShowModalError(false);
     }
   }, [selectedTime, selectedDate])
 
@@ -89,7 +108,7 @@ const VP = () => {
               <h2>Pare de gastar tempo e dinheiro em ações com pouco resultado.</h2>
               <h2>É hora de fazer cada centavo contar, escalando seu negócio e vendendo mais.</h2>
     
-              <CallToActionButton href='#sec' >
+              <CallToActionButton href='#info' >
                 <h3>Fale conosco</h3>
               </CallToActionButton>
             </div>
@@ -98,7 +117,7 @@ const VP = () => {
           </CallToActionContainer>
         </FirstContainer>
 
-        <SecondContainer id='sec' data-aos="zoom-in" >
+        <SecondContainer data-aos="zoom-in" >
           <img src={funilImg} alt="Funil"/>
 
           <SecretContainer>
@@ -122,14 +141,14 @@ const VP = () => {
                 <h3>Facebook advertising</h3>
               </div>
             </Info>
-            <CallToActionButton>
+            <CallToActionButton href='#info' >
               <h3>Fale conosco</h3>
             </CallToActionButton>
           </SecretContainer>
         </SecondContainer>
         <ThirdContainer>
           <ScheduleContainer>
-            <ScheduleInfo>
+            <ScheduleInfo id='info' >
               <Self>
                 <img src={instrutorImg} alt='Instrutor' />
               </Self>
@@ -143,21 +162,21 @@ const VP = () => {
                 <div>
                   <FiCheckCircle />
                 </div>
-                <h4>Tem um site, mas que não consegue atrair pessoas até ela.
+                <h4>Tem um site, mas que não consegue atrair pessoas até ele.
                 </h4>
               </CheckInfo>
               <CheckInfo data-aos="fade-right" >
                 <div>
                   <FiCheckCircle />
                 </div>
-                <h4>​Querem também ir para o online.
+                <h4>​Querem ir para o online, mas não sabem como.
                 </h4>
               </CheckInfo>
               <CheckInfo data-aos="fade-right" >
                 <div>
                   <FiCheckCircle />
                 </div>
-                <h4>Querem aumentar o faturamento do seu serviço ou do seu negócio.
+                <h4>Buscam aumentar o faturamento do seu serviço ou do seu negócio.
                 </h4>
               </CheckInfo>
               <CheckInfo data-aos="fade-right" >
@@ -205,7 +224,8 @@ const VP = () => {
                   onSubmit={handleSubmit}
                 >
                   <Input 
-                    name='email' 
+                    name='email'
+                    id='input'
                     type='text' 
                     placeholder='Digite seu e-mail'
                   />
@@ -219,10 +239,26 @@ const VP = () => {
             </FillInformation>
           </ScheduleContainer>
         </ThirdContainer>
-        <ForthContainer>
+        <FourthContainer>
           <h1>© 2020 VP-media. All Rights Reserved</h1>
-        </ForthContainer>
+        </FourthContainer>
       </Container>
+
+      {showModalConfirmed && 
+      <ModalConfirmed>
+        <div>
+          <FiCheckCircle size={40} />
+          <h1>Agendado</h1>
+        </div>
+      </ModalConfirmed>}
+
+      {showModalError && 
+      <ModalError>
+        <div>
+          <FiXCircle size={40} />
+          <h1>E-mail incorreto</h1>
+        </div>
+      </ModalError>}
     </>
   )
 }

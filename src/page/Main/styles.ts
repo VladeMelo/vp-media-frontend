@@ -1,5 +1,33 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
+
+const action = keyframes`
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.6);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+`
+
+const popUpModal = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+`
 
 export const Container = styled.div``;
 
@@ -10,23 +38,23 @@ export const FirstContainer = styled.div`
 `;
 
 export const Logo = styled.div`
-  margin: 35px 35px 100px;
+  margin: 0px 15px 20px;
 
   display: flex;
   justify-content: flex-start;
 
   img {
-    max-width: 150px;
+    max-width: 225px;
   }
 
-  @media (max-width: 1240px) {
+  @media (max-width: 1290px) {
     max-width: 1140px;
-    margin: 35px auto 100px;
+    margin: 10px 10px 20px;
   }
 
   @media (max-width: 1025px) {
     justify-content: center;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
   }
 `
 
@@ -42,7 +70,7 @@ export const CallToActionContainer = styled.div`
     flex-direction: column;
 
     h1 {
-      color: #455CEA;
+      color: #6519ff;
       font-family: Poppins;
       font-weight: bold;
       font-size: 40px;
@@ -214,7 +242,7 @@ export const ScheduleInfo = styled.div`
 
   h1 {
     font-size: 36px;
-    color: rgb(252, 55, 146);
+    color: #6519ff;
     margin: 10px 0; 
     font-family: Poppins;
   }
@@ -231,7 +259,7 @@ export const ScheduleInfo = styled.div`
 
   h3 {
     font-size: 24px;
-    color: rgb(252, 55, 146);
+    color: #6519ff;
     margin: 10px 0;
     font-family: Poppins;
   }
@@ -396,7 +424,7 @@ export const CarouselContainer = styled.div`
   margin: 10px auto 0;
 `
 
-export const ForthContainer = styled.div`
+export const FourthContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -406,5 +434,67 @@ export const ForthContainer = styled.div`
   h1 {
     font-size: 12px;
     color: #111111;
+  }
+`
+
+export const ModalConfirmed = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${popUpModal} 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  h1 {
+    height: 25px;
+    color: #13bf62;
+    margin-top: 10px;
+  }
+
+  svg {
+    color: #13bf62;
+    animation: ${action} 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+`
+
+export const ModalError = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${popUpModal} 3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  h1 {
+    height: 25px;
+    color: #e40006;
+    margin-top: 10px;
+  }
+
+  svg {
+    color: #e40006;
+    animation: ${action} 3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 `
