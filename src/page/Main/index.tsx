@@ -24,7 +24,7 @@ interface Data {
 }
 
 const api = axios.create({
-  baseURL: 'http://vp-media-backend.herokuapp.com/'
+  baseURL: 'https://vp-media-backend.herokuapp.com/'
 })
 
 const VP = () => {
