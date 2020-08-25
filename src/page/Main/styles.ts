@@ -38,23 +38,26 @@ export const FirstContainer = styled.div`
 `;
 
 export const Logo = styled.div`
-  margin: 0px 15px 20px;
+  margin: 10px 15px 20px;
 
   display: flex;
   justify-content: flex-start;
 
+  max-height: 150px;
+
   img {
-    max-width: 225px;
+    display: block;
+    max-width: 100%;
   }
 
   @media (max-width: 1290px) {
     max-width: 1140px;
-    margin: 10px 10px 20px;
+    margin: 0px 10px 20px;
   }
 
   @media (max-width: 1025px) {
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
   }
 `
 
