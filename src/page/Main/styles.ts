@@ -38,8 +38,7 @@ export const FirstContainer = styled.div`
 `;
 
 export const Logo = styled.div`
-  margin: 10px 15px 20px;
-
+  margin: 0px 15px 20px;
   display: flex;
   justify-content: flex-start;
 
@@ -47,17 +46,17 @@ export const Logo = styled.div`
 
   img {
     display: block;
-    max-width: 100%;
+    max-width: 200px;
   }
 
-  @media (max-width: 1290px) {
+  @media (max-width: 1300px) {
     max-width: 1140px;
-    margin: 0px 10px 20px;
+    margin: 0px -45px 20px;
   }
 
   @media (max-width: 1025px) {
     justify-content: center;
-    margin-bottom: 0px;
+    margin: 0px;
   }
 `
 
