@@ -3,14 +3,14 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import { FiCheckCircle, FiSend, FiXCircle } from 'react-icons/fi';
+import { FiCheckCircle, FiSend, FiXCircle, FiMail, FiLinkedin, FiPhone, FiX } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import axios from 'axios';
 
 import Input from '../../components/Input/index';
 import Carousel from '../../components/Carousel';
 
-import { Container, CallToActionButton,  CallToActionContainer, FirstContainer, Logo, SecondContainer, SecretContainer, Info, Circle, ThirdContainer, Calendar, ScheduleContainer, ScheduleInfo, CheckInfo, Self, FillInformation, CarouselContainer, FormEmail, FourthContainer, ModalConfirmed, ModalError } from './styles';
+import { Container, CallToActionButton,  CallToActionContainer, FirstContainer, Logo, SecondContainer, SecretContainer, Info, Circle, ThirdContainer, Calendar, ScheduleContainer, ScheduleInfo, CheckInfo, Self, FillInformation, CarouselContainer, FormEmail, FourthContainer, ModalConfirmed, ModalError, ContactModal, Contact } from './styles';
 
 import socialBoardSvg from '../../assets/social-board.svg'; 
 import vpImg from '../../assets/logoVpWhite.png'; 
@@ -20,6 +20,7 @@ import instrutorImg from '../../assets/instrutor.jpg';
 import GlobalStyle from '../../styles/global';
 
 interface Data {
+  name: string;
   email: string;
 }
 
@@ -32,12 +33,26 @@ const VP = () => {
   const [selectedTime, setSelectedTime] = useState('08:00');
   const [showModalConfirmed, setShowModalConfirmed] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
+  const [showModalContact, setShowModalContact] = useState(false);
 
   useEffect(() => {
     Aos.init({
       duration: 800,
       delay: 200
     })
+  }, [])
+
+  useEffect(() => {
+    const div = document.getElementById('trigger-modal');
+
+    if (div) {
+      window.onscroll = function() {
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
+        if (window.pageYOffset > scrollableHeight - 1) {
+          setShowModalContact(true);
+        }
+      }
+    }
   }, [])
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
@@ -66,6 +81,7 @@ const VP = () => {
     try {
       const timeFormatted = selectedTime.split(':').map(num => Number(num))
       await api.post('getting-email', {
+        name: data.name,
         email: data.email,
         hour: timeFormatted[0],
         minute: timeFormatted[1],
@@ -74,8 +90,8 @@ const VP = () => {
 
       setShowModalConfirmed(true);
 
-      if (document.querySelector('#input')) {
-        (document.querySelector('#input') as HTMLInputElement).value = '';
+      if (document.querySelector('.input')) {
+        (document.querySelector('.input') as HTMLInputElement).value = '';
       }
 
       await new Promise(resolve => {
@@ -92,6 +108,10 @@ const VP = () => {
       setShowModalError(false);
     }
   }, [selectedTime, selectedDate])
+
+  const endModalContact = useCallback(() => {
+    setShowModalContact(false);
+  }, [])
 
   return (
     <>
@@ -162,7 +182,7 @@ const VP = () => {
                 <div>
                   <FiCheckCircle />
                 </div>
-                <h4>Tem um site, mas que não consegue atrair pessoas até ele.
+                <h4>Tem um site, mas não consegue atrair pessoas até ele.
                 </h4>
               </CheckInfo>
               <CheckInfo data-aos="fade-right" >
@@ -176,14 +196,14 @@ const VP = () => {
                 <div>
                   <FiCheckCircle />
                 </div>
-                <h4>Buscam aumentar o faturamento do seu serviço ou do seu negócio.
+                <h4>Buscam aumentar o faturamento do seu negócio.
                 </h4>
               </CheckInfo>
               <CheckInfo data-aos="fade-right" >
                 <div>
                   <FiCheckCircle />
                 </div>
-                <h4>​​Buscam um parceiro para fazer marketing para o seu negócio.
+                <h4>Desejam um parceiro para fazer marketing para o seu negócio.
                 </h4>
               </CheckInfo>
             </ScheduleInfo>
@@ -224,13 +244,20 @@ const VP = () => {
                   onSubmit={handleSubmit}
                 >
                   <Input 
-                    name='email'
-                    id='input'
+                    name='name'
+                    className='input'
                     type='text' 
-                    placeholder='Digite seu e-mail'
+                    placeholder='Nome'
+                  />
+                  <Input 
+                    name='email'
+                    className='input'
+                    type='text' 
+                    placeholder='E-mail'
                   />
                   <button 
-                    type='submit' 
+                    type='submit'
+                    id='trigger-modal'
                   >
                     Send<FiSend />
                   </button>
@@ -240,7 +267,7 @@ const VP = () => {
           </ScheduleContainer>
         </ThirdContainer>
         <FourthContainer>
-          <h1>© 2020 VP-media. All Rights Reserved</h1>
+          <h3>© 2020 VP-media. All Rights Reserved</h3>
         </FourthContainer>
       </Container>
 
@@ -259,6 +286,30 @@ const VP = () => {
           <h1>E-mail incorreto</h1>
         </div>
       </ModalError>}
+
+      {showModalContact && 
+      <ContactModal>
+        <Contact>
+          <FiX 
+            onClick={endModalContact}
+          />
+          <h1>Contato</h1>
+
+          <div>
+            <FiLinkedin/>
+            <h2>Vitor Paes</h2>
+          </div>
+          <div>
+            <FiMail/>
+            <h2>vitorpaes@gmail.com</h2>
+          </div>
+          <div>
+            <FiPhone/>
+            <h2>+55 81 912345678</h2>
+          </div>
+        </Contact>
+      </ContactModal>
+      }
     </>
   )
 }

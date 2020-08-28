@@ -29,6 +29,18 @@ const popUpModal = keyframes`
   }
 `
 
+const popUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, -60px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`
+
 export const Container = styled.div``;
 
 export const FirstContainer = styled.div`
@@ -388,6 +400,10 @@ export const FormEmail = styled.div`
       border-radius: 10px;
       color: #3e3b47;
       font-size: 18px;
+
+      & + input {
+        margin-top: 10px;
+      }
     }
 
     button {
@@ -428,14 +444,92 @@ export const CarouselContainer = styled.div`
 
 export const FourthContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px 0;
+  padding: 8px 0 4px;
   background: #505050;
 
-  h1 {
-    font-size: 12px;
+  h3 {
+    font-size: 11px;
     color: #111111;
+  } 
+`
+
+export const ContactModal = styled.div`
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export const Contact = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 300px;
+  background: white;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #6519ff, #03a9f4);
+  padding: 20px 30px;
+  position: relative;
+  animation: ${popUp} 1s;
+
+
+  > svg {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: 0.2s;
+
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  h1 {
+    align-self: center;
+    font-size: 40px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #000;
+    font-weight: 600;
+    font-family: Poppins;
+  }
+
+  div {
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+
+    svg {
+      font-size: 28px;  
+      color: #111111; 
+      padding: 2px; 
+      transition: 0.2s; 
+      margin-right: 5px;
+
+      &:hover { 
+        transform: scale(1.2);  
+      }
+    }
+
+    h2 {
+      font-size: 22px;
+      font-family: Roboto-Slab;
+    }
+
+    & + div {
+      margin-top: 2px;
+    }
   }
 `
 
