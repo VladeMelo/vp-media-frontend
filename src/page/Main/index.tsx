@@ -34,6 +34,9 @@ const VP = () => {
   const [showModalConfirmed, setShowModalConfirmed] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
   const [showModalContact, setShowModalContact] = useState(false);
+  const [formClicked, setFormClicked] = useState(false)
+
+  const click = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     Aos.init({
@@ -48,12 +51,12 @@ const VP = () => {
     if (div) {
       window.onscroll = function() {
         const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
-        if (window.pageYOffset > scrollableHeight - 1) {
+        if (window.pageYOffset > scrollableHeight - 1 && !formClicked) {
           setShowModalContact(true);
         }
       }
     }
-  }, [])
+  }, [formClicked])
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) {
@@ -89,8 +92,9 @@ const VP = () => {
 
       setShowModalConfirmed(true);
 
-      if (document.querySelector('.input')) {
-        (document.querySelector('.input') as HTMLInputElement).value = '';
+      if (document.querySelectorAll('.input')) {
+        // (document.querySelectorAll('.input') as HTMLInputElement)value = '';
+        document.querySelectorAll('.input').forEach(input => (input as HTMLInputElement).value = '');
       }
 
       await new Promise(resolve => {
@@ -98,6 +102,7 @@ const VP = () => {
       })
       
       setShowModalConfirmed(false);
+      setFormClicked(false);
     } catch (err) {
       setShowModalError(true);
       await new Promise(resolve => {
@@ -112,13 +117,13 @@ const VP = () => {
     setShowModalContact(false);
   }, [])
 
-  const click = useRef<HTMLDivElement>(null);
-
   const handleClick = useCallback((ev: MouseEvent): void => {
     if (click.current?.contains(ev.target as Node)) {
-      endModalContact();
+      setFormClicked(true);
+    } else {
+      setFormClicked(false);
     }
-  }, [endModalContact])
+  }, [])
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClick);
