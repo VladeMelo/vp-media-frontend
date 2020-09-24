@@ -50,7 +50,7 @@ export const FirstContainer = styled.div`
 `;
 
 export const Logo = styled.div`
-  margin: 0px 15px 20px;
+  margin: 0px 15px 40px;
   display: flex;
   justify-content: flex-start;
 
@@ -349,7 +349,7 @@ export const Calendar = styled.aside`
   .DayPicker-Month {
     border-collapse: separate;
     border-spacing: 8px;
-    margin: 16px;
+    margin: 16px 2px;
   }
 
   .DayPicker-Day {
@@ -475,9 +475,8 @@ export const Contact = styled.div`
   justify-content: center;
   flex-direction: column;
   min-width: 300px;
-  background: white;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #6519ff, #03a9f4);
+  border: 5px solid #6519ff;
+  background: #111111;
   padding: 20px 30px;
   position: relative;
   animation: ${popUp} 1s;
@@ -488,6 +487,7 @@ export const Contact = styled.div`
     right: 10px;
     top: 10px;
     transition: 0.2s;
+    color: #6519ff;
 
     cursor: pointer;
 
@@ -500,7 +500,8 @@ export const Contact = styled.div`
     align-self: center;
     font-size: 40px;
     margin-bottom: 16px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #6519ff;
+    color: #6519ff;
     font-weight: 600;
     font-family: Poppins;
   }
@@ -512,7 +513,7 @@ export const Contact = styled.div`
 
     svg {
       font-size: 28px;  
-      color: #111111; 
+      color: #6519ff; 
       padding: 2px; 
       transition: 0.2s; 
       margin-right: 5px;
@@ -525,11 +526,16 @@ export const Contact = styled.div`
     h2 {
       font-size: 22px;
       font-family: Roboto-Slab;
+      color: #6519ff;
     }
 
     & + div {
       margin-top: 2px;
     }
+  }
+
+  &:before {
+    
   }
 `
 

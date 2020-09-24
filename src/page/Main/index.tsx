@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import DayPicker, { DayModifiers } from 'react-day-picker';
@@ -40,7 +40,7 @@ const VP = () => {
       duration: 800,
       delay: 200
     })
-  }, [])
+  })
 
   useEffect(() => {
     const div = document.getElementById('trigger-modal');
@@ -58,7 +58,6 @@ const VP = () => {
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if (modifiers.available && !modifiers.disabled) {
       setSelectedDate(day);
-      console.log(day.getDate()+'/'+day.getMonth()+'/'+day.getFullYear())
     }
   }, []);
 
@@ -113,6 +112,22 @@ const VP = () => {
     setShowModalContact(false);
   }, [])
 
+  const click = useRef<HTMLDivElement>(null);
+
+  const handleClick = useCallback((ev: MouseEvent): void => {
+    if (click.current?.contains(ev.target as Node)) {
+      endModalContact();
+    }
+  }, [endModalContact])
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, [handleClick])
+
   return (
     <>
       <GlobalStyle/>
@@ -133,12 +148,20 @@ const VP = () => {
               </CallToActionButton>
             </div>
     
-            <img src={socialBoardSvg} alt="Social-Board"/>
+            <img 
+              src={socialBoardSvg}
+              alt="Social-Board"
+              data-aos="zoom-in"   
+            />
           </CallToActionContainer>
         </FirstContainer>
 
-        <SecondContainer data-aos="zoom-in" >
-          <img src={funilImg} alt="Funil"/>
+        <SecondContainer>
+          <img
+            data-aos="zoom-in"  
+            src={funilImg} 
+            alt="Funil"
+          />
 
           <SecretContainer>
             <h1>NOSSA FILOSOFIA</h1>
@@ -168,7 +191,7 @@ const VP = () => {
         </SecondContainer>
         <ThirdContainer>
           <ScheduleContainer>
-            <ScheduleInfo id='info' >
+            <ScheduleInfo id='info'>
               <Self>
                 <img src={instrutorImg} alt='Instrutor' />
               </Self>
@@ -178,28 +201,28 @@ const VP = () => {
 
               <h3>ESSA LIGAÇÃO É PERFEITA PARA AQUELES QUE:</h3>
 
-              <CheckInfo data-aos="fade-right" >
+              <CheckInfo>
                 <div>
                   <FiCheckCircle />
                 </div>
                 <h4>Tem um site, mas não consegue atrair pessoas até ele.
                 </h4>
               </CheckInfo>
-              <CheckInfo data-aos="fade-right" >
+              <CheckInfo>
                 <div>
                   <FiCheckCircle />
                 </div>
                 <h4>​Querem ir para o online, mas não sabem como.
                 </h4>
               </CheckInfo>
-              <CheckInfo data-aos="fade-right" >
+              <CheckInfo>
                 <div>
                   <FiCheckCircle />
                 </div>
                 <h4>Buscam aumentar o faturamento do seu negócio.
                 </h4>
               </CheckInfo>
-              <CheckInfo data-aos="fade-right" >
+              <CheckInfo>
                 <div>
                   <FiCheckCircle />
                 </div>
@@ -239,7 +262,9 @@ const VP = () => {
                 />
               </CarouselContainer>
 
-              <FormEmail>
+              <FormEmail
+                ref={click}
+              >
                 <Form
                   onSubmit={handleSubmit}
                 >
@@ -305,7 +330,7 @@ const VP = () => {
           </div>
           <div>
             <FiPhone/>
-            <h2>+55 81 912345678</h2>
+            <h2>+55 81 987453663</h2>
           </div>
         </Contact>
       </ContactModal>
