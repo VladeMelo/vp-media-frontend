@@ -44,13 +44,13 @@ const popUp = keyframes`
 export const Container = styled.div``;
 
 export const FirstContainer = styled.div`
-  min-height: 100vh;
-  padding: 10px;
+  height: 100%;
+  padding: 10px 10px 120px;
   background: #111111;
 `;
 
 export const Logo = styled.div`
-  margin: 0px 15px 40px;
+  margin: 0px 15px;
   display: flex;
   justify-content: flex-start;
 
@@ -74,7 +74,7 @@ export const Logo = styled.div`
 
 export const CallToActionContainer = styled.div`
   max-width: 1140px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -143,7 +143,7 @@ export const CallToActionButton = styled.a`
 `
 
 export const SecondContainer = styled.div`
-  padding: 50px 10px 40px;
+  padding: 100px 10px;
   max-width: 1140px;
   margin: 0 auto;
   display: flex;

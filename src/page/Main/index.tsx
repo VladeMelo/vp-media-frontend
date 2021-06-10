@@ -316,30 +316,6 @@ const VP = () => {
           <h1>E-mail incorreto</h1>
         </div>
       </ModalError>}
-
-      {showModalContact && 
-      <ContactModal>
-        <Contact>
-          <FiX 
-            onClick={endModalContact}
-          />
-          <h1>Contato</h1>
-
-          <div>
-            <FiLinkedin/>
-            <h2>Vitor Paes</h2>
-          </div>
-          <div>
-            <FiMail/>
-            <h2>vitorpaes@gmail.com</h2>
-          </div>
-          <div>
-            <FiPhone/>
-            <h2>+55 81 987453663</h2>
-          </div>
-        </Contact>
-      </ContactModal>
-      }
     </>
   )
 }
